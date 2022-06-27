@@ -3,12 +3,20 @@ import os
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+
+dataset = config["DATASET"]
+datasetTest = config["DATASET_TEST"]
+
+
 generador_entrenamiento = tf.keras.preprocessing.image.ImageDataGenerator()
-datos_entrenamiento = generador_entrenamiento.flow_from_directory(os.getcwd() + "/dataset/Animals")
+datos_entrenamiento = generador_entrenamiento.flow_from_directory(os.getcwd() + dataset)
 
 generador_test = tf.keras.preprocessing.image.ImageDataGenerator()
 
-datos_test = generador_test.flow_from_directory(os.getcwd() + "/dataset/test", class_mode=None)
+datos_test = generador_test.flow_from_directory(os.getcwd() + datasetTest, class_mode=None)
 
 lote_test = next(datos_test)
 
