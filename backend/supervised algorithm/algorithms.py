@@ -83,7 +83,7 @@ for (i, imagePath) in enumerate(imagePaths):
 	# path as the format: /path/to/dataset/{class}.{image_num}.jpg
 	image = cv2.imread(imagePath)
 	
-	print(imagePaths)
+	print(imagePath)
 
 	label = imagePath.split(os.path.sep)[1] ##################################################cambiar aqui si se le cambia la direccion del dataset
 	# extract raw pixel intensity "features", followed by a color
