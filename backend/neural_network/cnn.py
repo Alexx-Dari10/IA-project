@@ -1,3 +1,4 @@
+import os
 import tensorflow as tf
 
 
@@ -5,7 +6,7 @@ class cnn:
     def __init__(self):
         pass
 
-    def run(self, data):
+    def run(self, data, val_data):
         inception = tf.keras.applications.InceptionV3(include_top=False, input_shape=(256, 256, 3))
         predictor = tf.keras.models.Sequential([
             tf.keras.layers.Flatten(), 
@@ -16,9 +17,12 @@ class cnn:
         model = tf.keras.models.Sequential([inception, predictor])
         model.compile(optimizer="adam", loss="categorical_crossentropy")
 
-        model.fit(data, epochs=50)
+        model.fit(data, epochs=50, validation_data=val_data)
 
-        model.save("animals_model.h5")
+        scores = model.evaluate(val_data, verbose=0)
+        print("Accuracy: %.2f%%" % (scores[1]*100))
+
+        model.save(os.getcwd() + '/model/model.h5')
 
 
         # probs = modelo.predict(lote_test)

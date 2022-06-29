@@ -8,6 +8,7 @@ from unsupervised_algorithms.unsupervised_algorithms import unsup_algoritms
 
 path_dataset_Animals = os.getcwd() + '\datasets\Animals'
 path_dataset_Animals_with_anomalies = os.getcwd() + '\datasets\Animals_with_anomalies'
+path_dataset_Animals_test = os.getcwd() + '\datasets\Animals_test'
 
 
 # # supervisado -------------------------------------------------------
@@ -25,5 +26,7 @@ path_dataset_Animals_with_anomalies = os.getcwd() + '\datasets\Animals_with_anom
 
 # CNN
 img = img_processing(path_dataset_Animals, False)
+img_test = img_processing(path_dataset_Animals_test, False)
+
 neural_net = cnn()
-neural_net.run(img.tf_process())
+neural_net.run(img.tf_process(), img_test.tf_process())
