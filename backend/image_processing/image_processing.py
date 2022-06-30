@@ -32,7 +32,7 @@ class img_processing:
         width = int(image.shape[1] * scale_percent / 100)
         height = int(image.shape[0] * scale_percent / 100)
 
-        size = (50, 50)
+        size = (32, 32)
         return cv2.resize(image, size).flatten()
 
 
@@ -61,10 +61,8 @@ class img_processing:
                     image = plt.imread(filepath)
 
                     pixels = self.image_to_feature_vector(image)
-                    hist = self.extract_color_histogram(image)
                     
                     self.rawImages.append(pixels)
-                    self.features.append(hist)
 
                     self.filePaths.append(filepath)
                     self.images.append(image)
@@ -108,6 +106,13 @@ class img_processing:
         pca.fit(r_data)
         return pca.transform(r_data)
 
-    def tf_process(self):
-        images = tf.keras.preprocessing.image.ImageDataGenerator()
-        return images.flow_from_directory(self.path)
+
+    def tf_process(self, test = False):
+        images = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255, rotation_range=30, width_shift_range=0.20, height_shift_range=0.2, horizontal_flip='true')
+        if test:
+            return images.flow_from_directory(self.path, class_mode = None)
+
+        return images.flow_from_directory(directory=self.path, batch_size=64,
+                                                                seed=42,
+                                                                shuffle=True,
+                                                                target_size=(75, 75))

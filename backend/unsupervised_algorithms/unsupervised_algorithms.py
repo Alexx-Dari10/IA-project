@@ -11,7 +11,7 @@ from sklearn.ensemble import IsolationForest
 class unsup_algoritms:
 
     def __init__(self):
-        outliers_fraction = 0.15
+        outliers_fraction = 0.05
 
         self.algorithms = [
                 ("One Class SVM", svm.OneClassSVM(nu=outliers_fraction, kernel='rbf', gamma=0.1)),
