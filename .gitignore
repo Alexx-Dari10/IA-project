@@ -132,4 +132,4 @@ dmypy.json
 backend/datasets/
 
 # model
-backend/model/
+backend/models/
